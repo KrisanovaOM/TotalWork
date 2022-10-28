@@ -6,12 +6,7 @@ string[] GetInpunArrayFromConsole()
   string value = Console.ReadLine();
   string[] arrayStringTest = value.Split(",").Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
 
-  string[] arrayString = new string[arrayStringTest.Length];
-  for (int i = 0; i < arrayString.Length; i++)
-  {
-    arrayString[i] = arrayStringTest[i];
-  }
-  return arrayString;
+  return arrayStringTest;
 }
 
 void PrintArray(string[] array)
@@ -23,12 +18,12 @@ void PrintArray(string[] array)
   }
 }
 
-int GetNumberElenentsInArray(string[] array)
+int GetNumberElenentsInArray(string[] array, int limitLenth)
 {
   int count = 0;
   for (int i = 0; i < array.Length; i++)
   {
-    if (array[i].Length <= 3)
+    if (array[i].Length <= limitLenth)
     {
       count++;
     }
@@ -36,24 +31,25 @@ int GetNumberElenentsInArray(string[] array)
   return count;
 }
 
-string[] GetTotalArray(string[] startArray)
+string[] GetTotalArray(string[] startArray, int limitLenth)
 {
-  string[] ReadyArray = new string[GetNumberElenentsInArray(startArray)];
+  string[] readyArray = new string[GetNumberElenentsInArray(startArray, limitLenth)];
   int countElementReadyArray = 0;
   for (int i = 0; i < startArray.Length; i++)
   {
-    if (startArray[i].Length <= 3)
+    if (startArray[i].Length <= limitLenth)
     {
-      ReadyArray[countElementReadyArray] = startArray[i];
+      readyArray[countElementReadyArray] = startArray[i];
       countElementReadyArray++;
     }
   }
-  return ReadyArray;
+  return readyArray;
 }
 
 // Начало основной программы
+int limitLength = 4; // Количество символов элемента массива
 string[] arrayString = GetInpunArrayFromConsole();
-string[] totalArray = GetTotalArray(arrayString);
+string[] totalArray = GetTotalArray(arrayString, limitLength);
 Console.WriteLine("Результат: ");
 PrintArray(arrayString);
 Console.Write(" -> ");
